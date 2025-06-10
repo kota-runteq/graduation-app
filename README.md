@@ -126,3 +126,8 @@
 - Google Maps Platform（地図表示）
 
 ---
+
+## 画面遷移図
+Figma：https://www.figma.com/design/RWYhovjI95EaDeGEHS2s39/Untitled?node-id=0-1&t=HDmVmVIkaW8m6yh8-1
+
+---
