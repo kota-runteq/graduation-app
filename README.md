@@ -131,3 +131,8 @@
 Figma：https://www.figma.com/design/RWYhovjI95EaDeGEHS2s39/Untitled?node-id=0-1&t=HDmVmVIkaW8m6yh8-1
 
 ---
+
+## ER図
+[![Image from Gyazo](https://i.gyazo.com/d3036efcf1db7233eaf8ad187694ba41.png)](https://gyazo.com/d3036efcf1db7233eaf8ad187694ba41)
+
+---
