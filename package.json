@@ -1,6 +1,10 @@
 {
   "name": "graduation-app",
   "version": "1.0.0",
+  "engines": {
+    "node": "20.x",
+    "yarn": ">=1.22 <2"
+  },
   "main": "index.js",
   "repository": "https://github.com/kota-runteq/graduation-app",
   "license": "MIT",
