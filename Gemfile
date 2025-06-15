@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+ruby "3.2.8"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.2"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
@@ -60,4 +62,8 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+end
+
+group :test do
+  gem "sqlite3", "~> 2.3"
 end

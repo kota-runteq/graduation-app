@@ -21,11 +21,30 @@ default: &default
 
 
 development:
-  <<: *default
-  database: graduation_app_development
-  host: db
-  username: postgres
-  password: password
+  primary:
+    <<: *default
+    database: graduation_app_development
+    host: db
+    username: postgres
+    password: password
+  cable:
+    <<: *default
+    database: graduation_app_development
+    host: db
+    username: postgres
+    password: password
+  queue:
+    <<: *default
+    database: graduation_app_development
+    host: db
+    username: postgres
+    password: password
+  cache:
+    <<: *default
+    database: graduation_app_development
+    host: db
+    username: postgres
+    password: password
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -58,11 +77,21 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: graduation_app_test
-  host: db
-  username: postgres
-  password: password
+  primary:
+    adapter: sqlite3
+    database: ":memory:"
+
+  cable:
+    adapter: sqlite3
+    database: ":memory:"
+
+  queue:
+    adapter: sqlite3
+    database: ":memory:"
+
+  cache:
+    adapter: sqlite3
+    database: ":memory:"
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -78,8 +107,20 @@ test:
 # the values provided in this file. Alternatively, you can specify a connection
 # URL environment variable explicitly:
 #
-#   production:
-#     url: <%= ENV["MY_APP_DATABASE_URL"] %>
+production:
+  primary:
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>
+  cable:
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>
+  queue:
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>
+  cache:
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>
+
 #
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
