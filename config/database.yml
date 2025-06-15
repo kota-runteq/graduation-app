@@ -33,6 +33,18 @@ development:
     host: db
     username: postgres
     password: password
+  queue:
+    <<: *default
+    database: graduation_app_development
+    host: db
+    username: postgres
+    password: password
+  cache:
+    <<: *default
+    database: graduation_app_development
+    host: db
+    username: postgres
+    password: password
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -77,6 +89,18 @@ test:
     host: db
     username: postgres
     password: password
+  queue:
+    <<: *default
+    database: graduation_app_test
+    host: db
+    username: postgres
+    password: password
+  cache:
+    <<: *default
+    database: graduation_app_test
+    host: db
+    username: postgres
+    password: password
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -99,6 +123,13 @@ production:
   cable:
     <<: *default
     url: <%= ENV["DATABASE_URL"] %>
+  queue:
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>
+  cache:
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>
+
 #
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
