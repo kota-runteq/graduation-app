@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.2.8"  
+ruby "3.2.8"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.2"
@@ -62,4 +62,8 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+end
+
+group :test do
+  gem "sqlite3", "~> 2.3"
 end

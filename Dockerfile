@@ -2,7 +2,7 @@ FROM ruby:3.2.8
 ENV LANG C.UTF-8
 ENV TZ Asia/Tokyo
 RUN apt-get update -qq \
-&& apt-get install -y curl gnupg ca-certificates build-essential libpq-dev wget
+&& apt-get install -y curl gnupg ca-certificates build-essential libpq-dev libsqlite3-dev wget
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 && apt-get install -y nodejs
 RUN corepack enable
