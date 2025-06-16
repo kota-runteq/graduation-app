@@ -13,8 +13,10 @@
             <%= link_to 'トップページ', '/', class: 'dropdown-item' %>
           </li>
           <li>
-            <!-- ダミー。URL は後で devise に差し替える -->
-            <%= link_to 'ログイン', '#', class: 'dropdown-item' %>
+            <%= link_to 'ログイン', '/users/sign_in', class: 'dropdown-item' %>
+          </li>
+          <li>
+            <%= link_to '新規登録', '/users/sign_up', class: 'dropdown-item' %>
           </li>
         </ul>
       </div>
