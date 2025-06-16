@@ -15,4 +15,5 @@ COPY ./Gemfile ./Gemfile.lock ./
 RUN bundle install
 COPY . .
 ENTRYPOINT ["./bin/entrypoint.sh"]
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["./bin/dev", "-b", "0.0.0.0"]
+ENTRYPOINT ["./bin/entrypoint.sh"]
