@@ -12,6 +12,7 @@
           <li>
             <%= link_to 'トップページ', '/', class: 'dropdown-item' %>
           </li>
+          <% unless Rails.env.production? && ENV["HIDE_AUTH_UI"] == "true" %>
           <% if user_signed_in? %>
             <li>
             <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "dropdown-item btn btn-link" %>
@@ -24,6 +25,7 @@
               <%= link_to '新規登録', new_user_registration_path,  class: 'dropdown-item' %>
             </li>
           <% end %>
+        <% end %>
         </ul>
       </div>
     </div>
