@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  root "temporary_homepage#top"
+  root "top#index"
 end

@@ -67,3 +67,7 @@ end
 group :test do
   gem "sqlite3", "~> 2.3"
 end
+
+group :development do
+  gem "foreman"
+end
