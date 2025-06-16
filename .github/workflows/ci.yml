@@ -54,7 +54,6 @@ jobs:
         run: bin/rubocop -f github
 
   test:
-  if: ${{ env.SKIP_TESTS != 'true' }}
     runs-on: ubuntu-latest
 
     # services:
