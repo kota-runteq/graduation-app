@@ -12,12 +12,18 @@
           <li>
             <%= link_to 'トップページ', '/', class: 'dropdown-item' %>
           </li>
-          <li>
-            <%= link_to 'ログイン', '/users/sign_in', class: 'dropdown-item' %>
-          </li>
-          <li>
-            <%= link_to '新規登録', '/users/sign_up', class: 'dropdown-item' %>
-          </li>
+          <% if user_signed_in? %>
+            <li>
+            <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "dropdown-item btn btn-link" %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to 'ログイン', new_user_session_path, class: 'dropdown-item' %>
+            </li>
+            <li>
+              <%= link_to '新規登録', new_user_registration_path,  class: 'dropdown-item' %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>
