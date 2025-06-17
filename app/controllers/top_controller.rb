@@ -1,3 +1,5 @@
 class TopController < ApplicationController
-  def index; end
+  def index
+    @q = Menu.ransack(params[:q])
+  end
 end
