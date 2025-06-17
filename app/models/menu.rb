@@ -21,18 +21,33 @@ class Menu < ApplicationRecord
     %w[menu_nutrients nutrients]
   end
 
-  scope :protein_gteq, ->(v = nil) { v.to_s.strip.empty? ? all : nutrient_amount_cond("protein", ">=", v) }
-  scope :protein_lteq, ->(v = nil) { v.to_s.strip.empty? ? all : nutrient_amount_cond("protein", "<=", v) }
-  scope :fat_gteq, ->(v = nil) { v.to_s.strip.empty? ? all : nutrient_amount_cond("fat", ">=", v) }
-  scope :fat_lteq, ->(v = nil) { v.to_s.strip.empty? ? all : nutrient_amount_cond("fat", "<=", v) }
-  scope :carbs_gteq, ->(v = nil) { v.to_s.strip.empty? ? all : nutrient_amount_cond("carbs", ">=", v) }
-  scope :carbs_lteq, ->(v = nil) { v.to_s.strip.empty? ? all : nutrient_amount_cond("carbs", "<=", v) }
-  scope :calories_gteq, ->(v = nil) { v.to_s.strip.empty? ? all : nutrient_amount_cond("calories", ">=", v) }
-  scope :calories_lteq, ->(v = nil) { v.to_s.strip.empty? ? all : nutrient_amount_cond("calories", "<=", v) }
+  NUTRIENT_OPS = {
+    ">=" => :gteq,
+    "<=" => :lteq,
+    ">"  => :gt,
+    "<"  => :lt,
+    "="  => :eq
+  }.freeze
+
+
+  %i[protein fat carbs calories].each do |nutrient|
+    define_singleton_method("#{nutrient}_gteq") do |v = nil|
+      v.to_s.strip.empty? ? all : nutrient_amount_cond(nutrient.to_s, ">=", v)
+    end
+
+    define_singleton_method("#{nutrient}_lteq") do |v = nil|
+      v.to_s.strip.empty? ? all : nutrient_amount_cond(nutrient.to_s, "<=", v)
+    end
+  end
+
 
   def self.nutrient_amount_cond(key, op, val)
+    arel_method = NUTRIENT_OPS[op]
+    raise ArgumentError, "Invalid operator: #{op}" unless arel_method
+    mnt  = MenuNutrient.arel_table
+    condition = mnt[:amount].public_send(arel_method, val)
     joins(menu_nutrients: :nutrient)
-      .where(nutrients: { key: })
-      .where("menu_nutrients.amount #{op} ?", val)
+      .where(nutrients: { key: key })
+      .where(condition)
   end
 end
