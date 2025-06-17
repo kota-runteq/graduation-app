@@ -29,7 +29,6 @@ class Menu < ApplicationRecord
     "="  => :eq
   }.freeze
 
-
   %i[protein fat carbs calories].each do |nutrient|
     define_singleton_method("#{nutrient}_gteq") do |v = nil|
       v.to_s.strip.empty? ? all : nutrient_amount_cond(nutrient.to_s, ">=", v)
