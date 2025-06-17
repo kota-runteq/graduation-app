@@ -7,7 +7,7 @@ class CreateNutrients < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
-    
+
     add_index :nutrients, :key, unique: true
   end
 end
