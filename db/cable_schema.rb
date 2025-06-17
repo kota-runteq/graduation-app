@@ -10,15 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_17_024003) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_17_033108) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "menu_nutrients", force: :cascade do |t|
+    t.bigint "menu_id", null: false
+    t.bigint "nutrient_id", null: false
+    t.decimal "amount", precision: 5, scale: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["menu_id", "nutrient_id"], name: "index_menu_nutrients_on_menu_id_and_nutrient_id", unique: true
+    t.index ["menu_id"], name: "index_menu_nutrients_on_menu_id"
+    t.index ["nutrient_id", "amount"], name: "index_menu_nutrients_on_nutrient_id_and_amount"
+    t.index ["nutrient_id"], name: "index_menu_nutrients_on_nutrient_id"
+  end
 
   create_table "menus", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_menus_on_name"
+  end
+
+  create_table "nutrients", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "name", null: false
+    t.string "unit", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_nutrients_on_key", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -37,4 +58,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_17_024003) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "menu_nutrients", "menus"
+  add_foreign_key "menu_nutrients", "nutrients"
 end
