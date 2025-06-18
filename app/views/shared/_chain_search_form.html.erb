@@ -1,0 +1,10 @@
+<%# locals: q (Ransack::Search for Chain), url (String or URL helper) %>
+<div class="container py-5 d-flex justify-content-center">
+  <%= search_form_for q, url: url, method: :get, html: { class: 'row g-3 align-items-end mb-4' } do |f| %>
+    <div class="col-auto">
+      <%= f.label :chain_category_id_eq, 'カテゴリ' %>
+      <%= f.select :chain_category_id_eq, ChainCategory.order(:name).pluck(:name, :id), { include_blank: 'すべて' }, class: 'form-select' %></div>
+
+    <div class="col-auto"><%= f.submit '絞り込む', class: 'btn btn-primary' %></div>
+  <% end %>
+</div>

@@ -2,10 +2,12 @@
   .min-row { min-width: 400px; }
 </style>
 
+<%# locals: q (Ransack::Search), url (String or Rails URL helper) %>
+
 <div class="container py-4">
   <div class="row">
     <div class="col-lg-5 col-md-6 mx-auto min-row">
-      <%= search_form_for @q, url: menus_path, method: :get do |f| %>
+      <%= search_form_for q, url: url, method: :get do |f| %>
         <div class="row mb-2 align-items-center">
           <div class="col-4 label-nowrap fw-bold ">たんぱく質 (g)</div>
           <div class="col-8">

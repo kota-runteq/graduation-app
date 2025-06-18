@@ -1,14 +1,23 @@
 <div class="container py-5 d-flex justify-content-center">
   <div class="text-center">
     <h1 class="h2 fw-bold mb-3">ChainMenu+PFC とは？</h1>
-     <div class='explanation'>
+    <div class='explanation'>
       <p>
         外食チェーンのメニューを3大栄養素<br>
         <strong>P</strong>たんぱく質 / <strong>F</strong>脂質 / <strong>C</strong>炭水化物やカロリーの<br>
         数値で絞り込み検索できるサービスです。<br>
-        ダイエット中でも「食べられるメニュー」をきっと見つけられます。<br>
+        ダイエット中でも「食べられるメニュー」を探しましょう！<br>
+        また食事記録やレコーディングダイエットにも役に立ちます。<br>
       </p>
-        <div><%= render 'shared/search_form', url: menus_path %></div>
+        <div class="h3 fw-bold">栄養素からメニューを探す</div>
+        <div>
+          <%= render 'shared/search_form',q: @q, url: menus_path %>
+        </div>
+        <div class="h3 fw-bold">お店からメニューを探す</div>
+        <div class="fw-bold">カテゴリから店をしぼりこむ</div>
+        <div>
+          <%= render 'shared/chain_search_form', q: @chain_q, url: chains_path %>
+        </div>
     </div>
   </div>
 </div>
