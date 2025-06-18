@@ -3,10 +3,9 @@
     <h2><%= @chain.name %></h2>
     <p class="text-muted"><%= @chain.chain_category&.name %></p>
   </div>
-
   <hr>
-
-<div id="search-forms-placeholder">
-  <%= render 'shared/search_form', q: @q, url: chain_path(@chain) %>
-  <%= render 'menus/index', q: @q, menus: @menus %>
+  <div id="search-forms-placeholder">
+    <%= render 'shared/search_form', q: @q, url: chain_path(@chain) %>
+    <%= render 'menus/index', q: @q, menus: @menus %>
+  </div>
 </div>
