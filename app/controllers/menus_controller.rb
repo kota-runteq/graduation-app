@@ -8,7 +8,7 @@ class MenusController < ApplicationController
   NUTRIENTS = %w[calories protein fat carbs]
 
   def index
-    allowed = %w[name_cont] + NUTRIENTS.flat_map { |nutrient| ["#{nutrient}_gteq", "#{nutrient}_lteq"]}
+    allowed = %w[name_cont] + NUTRIENTS.flat_map { |nutrient| [ "#{nutrient}_gteq", "#{nutrient}_lteq" ] }
 
     raw_q = params.fetch(:q, {}).permit(allowed).to_h
 

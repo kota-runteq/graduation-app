@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   resources :menus, only: :index
   root "top#index"
-  resources :chains, only: [:index, :show]
+  resources :chains, only: [ :index, :show ]
 end
