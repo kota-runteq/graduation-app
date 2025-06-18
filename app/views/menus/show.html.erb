@@ -1,0 +1,62 @@
+<%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/chart.js' %>
+<div class="container py-5">
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body text-center">
+      <h2 class="card-title h3 fw-bold mb-2"><%= @menu.name %></h2>
+      <p class="text-muted mb-0">
+        チェーン：<%= link_to @menu.chain.name, chain_path(@menu.chain), class: "text-decoration-none" %>
+      </p>
+    </div>
+  </div>
+  <div class="row gx-4">
+    <div class="col-md-6 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-header bg-light">栄養素情報</div>
+        <div class="card-body">
+          <table class="table mb-0">
+            <tbody>
+              <tr><th scope="row">カロリー</th><td><%= @calories.to_i %> kcal</td></tr>
+              <tr><th scope="row">たんぱく質 (P)</th><td><%= @protein %> g（<%= @protein_kcal.to_i %> kcal）</td></tr>
+              <tr><th scope="row">脂質 (F)</th><td><%= @fat %> g（<%= @fat_kcal.to_i %> kcal）</td></tr>
+              <tr><th scope="row">炭水化物 (C)</th><td><%= @carbs %> g（<%= @carbs_kcal.to_i %> kcal）</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-header bg-light">PFCバランス</div>
+        <div class="card-body d-flex flex-column align-items-center">
+          <canvas id="pfcChart" width="250" height="250"></canvas>
+          <div class="mt-3">
+            <div class="d-flex align-items-center mb-1">
+              <span style="display:inline-block;width:12px;height:12px;background-color:#4e73df;margin-right:8px;"></span>
+              <span>たんぱく質 <%= @protein_pct %>%</span>
+            </div>
+            <div class="d-flex align-items-center mb-1">
+              <span style="display:inline-block;width:12px;height:12px;background-color:#28a745;margin-right:8px;"></span>
+              <span>脂質 <%= @fat_pct %>%</span>
+            </div>
+            <div class="d-flex align-items-center">
+              <span style="display:inline-block;width:12px;height:12px;background-color:#f6c23e;margin-right:8px;"></span>
+              <span>炭水化物 <%= @carbs_pct %>%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded",function(){
+    const data=[<%= @protein_kcal.to_i %>,<%= @fat_kcal.to_i %>,<%= @carbs_kcal.to_i %>];
+    const ctx=document.getElementById('pfcChart').getContext('2d');
+    new Chart(ctx,{
+      type:'pie',
+      data:{labels:['P','F','C'],datasets:[{data:data,backgroundColor:['#4e73df','#28a745','#f6c23e']}]},
+      options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){const v=c.raw,p=(v/data.reduce((a,b)=>a+b,0)*100).toFixed(1);return['たんぱく質','脂質','炭水化物'][c.dataIndex]+': '+v+' kcal ('+p+'%)';}}}}}
+    });
+  });
+</script>
