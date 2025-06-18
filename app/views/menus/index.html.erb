@@ -3,6 +3,9 @@
     <h1 class="h2 fw-bold mb-3">メニューを絞り込みましょう</h1>
     <div class="text-center">
       <%= render 'shared/search_form', q: @q, url: menus_path %>
+      <% if sort_description.present? %>
+        <p class="small text-muted mb-3"><%= sort_description %></p>
+      <% end %>
       <table class="table">
         <thead>
           <tr>
@@ -10,7 +13,7 @@
             <th>チェーン</th>
             <th>たんぱく質(g)</th>
             <th>脂質(g)</th>
-            <th>糖質(g)</th>
+            <th>炭水化物(g)</th>
             <th>カロリー(kcal)</th>
           </tr>
         </thead>
