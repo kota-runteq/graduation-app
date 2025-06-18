@@ -21,17 +21,17 @@ class MenusController < ApplicationController
   def show
     @menu = Menu.find(params[:id])
     nutrients_map = @menu.menu_nutrients.includes(:nutrient).index_by { |mn| mn.nutrient.key }
-    @calories = nutrients_map['calories']&.amount
-    @protein = nutrients_map['protein']&.amount
-    @fat = nutrients_map['fat']&.amount
-    @carbs = nutrients_map['carbs']&.amount
+    @calories = nutrients_map["calories"]&.amount
+    @protein = nutrients_map["protein"]&.amount
+    @fat = nutrients_map["fat"]&.amount
+    @carbs = nutrients_map["carbs"]&.amount
 
     @protein_kcal = @protein * 4
     @fat_kcal = @fat * 9
     @carbs_kcal = @calories - (@protein_kcal + @fat_kcal)
-    #計算で炭水化物の有するエネルギーを他の情報から計算している都合上、
-    #元データの精度や食物繊維の量によってはマイナスになるかもしれないので、
-    #もしマイナスになったら、0にする
+    # 計算で炭水化物の有するエネルギーを他の情報から計算している都合上、
+    # 元データの精度や食物繊維の量によってはマイナスになるかもしれないので、
+    # もしマイナスになったら、0にする
     @carbs_kcal = 0 if @carbs_kcal.negative?
 
     total_kcal = @protein_kcal + @fat_kcal + @carbs_kcal
