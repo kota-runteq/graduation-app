@@ -24,7 +24,7 @@
             <% carbs_mn = menu.menu_nutrients.find { |mn| mn.nutrient.key == 'carbs' } %>
             <% calories_mn = menu.menu_nutrients.find { |mn| mn.nutrient.key == 'calories' } %>
             <tr>
-              <td ca><%= menu.name %></td>
+              <td><%= link_to menu.name, menu_path(menu), title: "#{menu.name}" %></td>
               <td><%= link_to menu.chain.name, chain_path(menu.chain), title: "#{menu.chain.name}" %></td>
               <td><%= protein_mn&.amount %></td>
               <td><%= fat_mn&.amount %></td>

@@ -9,15 +9,23 @@
         ダイエット中でも「食べられるメニュー」を探しましょう！<br>
         また食事記録やレコーディングダイエットにも役に立ちます。<br>
       </p>
-        <div class="h3 fw-bold">栄養素からメニューを探す</div>
-        <div>
-          <%= render 'shared/search_form',q: @q, url: menus_path %>
-        </div>
-        <div class="h3 fw-bold">お店からメニューを探す</div>
-        <div class="fw-bold">カテゴリから店をしぼりこむ</div>
-        <div>
-          <%= render 'shared/chain_search_form', q: @chain_q, url: chains_path %>
-        </div>
+      <hr>
+      <div class="h3 fw-bold">
+        栄養素からメニューを探す
+      </div>
+      <div>
+        <%= render 'shared/search_form',q: @q, url: menus_path %>
+      </div>
+      <hr>
+      <div class="h3 fw-bold">
+        お店からメニューを探す
+      </div>
+      <div class="fw-bold">
+        カテゴリから店をしぼりこむ
+      </div>
+      <div>
+        <%= render 'shared/chain_search_form', q: @chain_q, url: chains_path %>
+      </div>
     </div>
   </div>
 </div>

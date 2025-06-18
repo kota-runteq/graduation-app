@@ -1,13 +1,10 @@
 <div class="container py-5">
   <h2 class="mb-4">チェーンブランドをカテゴリで絞り込む</h2>
-
+  <hr>
   <%= search_form_for @q, url: chains_path, method: :get, html: { class: 'row g-3 align-items-end mb-4' } do |f| %>
     <div class="col-auto">
       <%= f.label :chain_category_id_eq, 'カテゴリ' %>
-      <%= f.select :chain_category_id_eq,
-                   ChainCategory.order(:name).pluck(:name, :id),
-                   { include_blank: 'すべて' },
-                   class: 'form-select' %>
+      <%= f.select :chain_category_id_eq, ChainCategory.order(:name).pluck(:name, :id), { include_blank: 'すべて' }, class: 'form-select' %>
     </div>
     <div class="col-auto">
       <%= f.submit '絞り込む', class: 'btn btn-primary' %>
@@ -19,7 +16,6 @@
       <% @chains.each do |chain| %>
         <%= link_to chain_path(chain), class: "list-group-item list-group-item-action" do %>
           <h5 class="mb-1"><%= chain.name %></h5>
-          <small class="text-muted"><%= chain.chain_category&.name %></small>
         <% end %>
       <% end %>
     </div>
