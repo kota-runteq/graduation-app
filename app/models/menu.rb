@@ -54,10 +54,10 @@ class Menu < ApplicationRecord
   end
 
 
-  scope :order_by_nutrient, ->(key, dir = 'asc') do
+  scope :order_by_nutrient, ->(key, dir = "asc") do
     return all unless NUTRIENTS.include?(key) && %w[asc desc].include?(dir)
-    sql_dir = dir == 'desc' ? 'DESC' : 'ASC'
- 
+    sql_dir = dir == "desc" ? "DESC" : "ASC"
+
     join_sql = <<~SQL
       INNER JOIN menu_nutrients AS sorting_mn
       ON sorting_mn.menu_id = menus.id
@@ -65,7 +65,7 @@ class Menu < ApplicationRecord
       ON sorting_n.id = sorting_mn.nutrient_id
       AND sorting_n.key = #{ActiveRecord::Base.connection.quote(key)}
     SQL
- 
+
     joins(join_sql).order(Arel.sql("sorting_mn.amount #{sql_dir}"))
   end
 end

@@ -10,10 +10,10 @@ class ChainsController < ApplicationController
     @chain = Chain.find(params[:id])
     @q = @chain.menus.ransack(params[:q])
     @menus = @q.result.includes(:menu_nutrients)
- 
+
     if params[:sort_target].present?
       target = params[:sort_target].presence_in(NUTRIENTS)
-      order = params[:sort_order].presence_in(%w[asc desc]) || 'asc'
+      order = params[:sort_order].presence_in(%w[asc desc]) || "asc"
       @menus = @menus.order_by_nutrient(target, order) if target
     else
       @menus = @menus.order(:name)
