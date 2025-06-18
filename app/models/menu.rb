@@ -22,6 +22,8 @@ class Menu < ApplicationRecord
     %w[menu_nutrients nutrients]
   end
 
+  NUTRIENTS = %w[protein fat carbs calories].freeze
+
   NUTRIENT_OPS = {
     ">=" => :gteq,
     "<=" => :lteq,
@@ -44,10 +46,26 @@ class Menu < ApplicationRecord
   def self.nutrient_amount_cond(key, op, val)
     arel_method = NUTRIENT_OPS[op]
     raise ArgumentError, "Invalid operator: #{op}" unless arel_method
-    mnt  = MenuNutrient.arel_table
-    condition = mnt[:amount].public_send(arel_method, val)
-    joins(menu_nutrients: :nutrient)
-      .where(nutrients: { key: key })
-      .where(condition)
+    nutrient = Nutrient.find_by!(key: key)
+    mnt = MenuNutrient.arel_table
+    cond = mnt[:amount].public_send(arel_method, val)
+    sub = MenuNutrient.where(nutrient_id: nutrient.id).where(cond).select(:menu_id)
+    where(id: sub)
+  end
+
+
+  scope :order_by_nutrient, ->(key, dir = 'asc') do
+    return all unless NUTRIENTS.include?(key) && %w[asc desc].include?(dir)
+    sql_dir = dir == 'desc' ? 'DESC' : 'ASC'
+ 
+    join_sql = <<~SQL
+      INNER JOIN menu_nutrients AS sorting_mn
+      ON sorting_mn.menu_id = menus.id
+      INNER JOIN nutrients AS sorting_n
+      ON sorting_n.id = sorting_mn.nutrient_id
+      AND sorting_n.key = #{ActiveRecord::Base.connection.quote(key)}
+    SQL
+ 
+    joins(join_sql).order(Arel.sql("sorting_mn.amount #{sql_dir}"))
   end
 end
