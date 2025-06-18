@@ -13,7 +13,6 @@ services:
     stdin_open: true
     volumes:
       - .:/graduation-app
-      - bundle:/usr/local/bundle
     ports:
       - "3000:3000"
     depends_on:

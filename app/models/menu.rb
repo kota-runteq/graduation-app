@@ -1,6 +1,7 @@
 class Menu < ApplicationRecord
   has_many :menu_nutrients, dependent: :destroy
   has_many :nutrients, through: :menu_nutrients
+  belongs_to :chain
 
   validates :name, presence: true
 

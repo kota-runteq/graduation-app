@@ -10,9 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_17_033108) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_17_153320) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "chain_categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_chain_categories_on_name", unique: true
+  end
+
+  create_table "chains", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "chain_category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chain_category_id"], name: "index_chains_on_chain_category_id"
+    t.index ["name"], name: "index_chains_on_name"
+  end
 
   create_table "menu_nutrients", force: :cascade do |t|
     t.bigint "menu_id", null: false
@@ -30,6 +46,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_17_033108) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "chain_id", null: false
+    t.index ["chain_id"], name: "index_menus_on_chain_id"
     t.index ["name"], name: "index_menus_on_name"
   end
 
@@ -59,6 +77,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_17_033108) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "chains", "chain_categories"
   add_foreign_key "menu_nutrients", "menus"
   add_foreign_key "menu_nutrients", "nutrients"
+  add_foreign_key "menus", "chains"
 end
