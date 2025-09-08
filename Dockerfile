@@ -15,5 +15,4 @@ COPY ./Gemfile ./Gemfile.lock ./
 RUN bundle install
 COPY . .
 ENTRYPOINT ["./bin/entrypoint.sh"]
-CMD ["./bin/dev", "-b", "0.0.0.0"]
 ENTRYPOINT ["./bin/entrypoint.sh"]
