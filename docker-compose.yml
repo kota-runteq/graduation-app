@@ -26,6 +26,7 @@ services:
       DATABASE_PASSWORD: password
       RAILS_ENV: development
     # user: "1001:1002"
+    command: bash -lc "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0 -p 3000"
   chrome:
     image: seleniarm/standalone-chromium:latest
     ports:
