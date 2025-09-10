@@ -1,0 +1,112 @@
+ja:
+  devise:
+    confirmations:
+      new:
+        title: "確認メールの再送"
+        resend_button: "確認メールを送信する"
+      confirmed: "メールアドレスを確認しました。ログインできます。"
+      send_instructions: "確認メールを送信しました。メール内のリンクをクリックして登録を完了してください。"
+      send_paranoid_instructions: "（該当する場合は）確認メールを送信しました。"
+    failure:
+      already_authenticated: "すでにログインしています。"
+      inactive: "アカウントが有効化されていません。確認メールをご確認ください。"
+      invalid: "メールアドレスまたはパスワードが正しくありません。"
+      locked: "アカウントがロックされています。"
+      last_attempt: "残り1回の失敗でアカウントがロックされます。ご注意ください。"
+      not_found_in_database: "メールアドレスまたはパスワードが正しくありません。"
+      timeout: "一定時間操作がなかったためログアウトしました。もう一度ログインしてください。"
+      unauthenticated: "ログインしてください。"
+      unconfirmed: "アカウントを有効化するため、確認メールのリンクをクリックしてください。"
+    mailer:
+      confirmation_instructions:
+        subject: "【ChainMenu+PFC】メールアドレスの確認"
+        greeting: "ようこそ、%{email}様！"
+        instructions: "以下のリンクをクリックして、ユーザー登録を完了してください。。"
+        action: "ユーザー登録を完了する"
+      reset_password_instructions:
+        subject: "【ChainMenu+PFC】パスワード再設定のご案内"
+        greeting: "こんにちは、%{email}様！"
+        intro: "パスワード変更のリクエストを受け付けました。以下のリンクからパスワードを変更できます。"
+        action: "パスワードを変更する"
+        notice: "このリクエストに心当たりがない場合は、このメールを無視してください。"
+        notice2: "上記のリンクにアクセスして新しいパスワードを設定するまでは、パスワードは変更されません。"
+      unlock_instructions:
+        subject: "【ChainMenu+PFC】アカウントのロック解除"
+        greeting: "こんにちは、%{email}様！"
+        intro: "ログインに一定回数以上失敗したため、アカウントがロックされました。"
+        instructions: "以下のリンクをクリックするとアカウントのロックを解除できます。"
+        action: "アカウントのロックを解除する"
+      email_changed:
+        subject: "【ChainMenu+PFC】メールアドレス変更の確認"
+        greeting: "こんにちは、%{email}様！"
+        being_changed: "現在、ご登録のメールアドレスを%{email}に変更する手続きを行っております。"
+        changed: "ご登録のメールアドレスが%{email}に変更されました。"
+      password_change:
+        subject: "【ChainMenu+PFC】パスワードが変更されました"
+        greeting: "こんにちは、%{email}様！"
+        notice: "パスワードが変更されたことをお知らせするためにご連絡しております。"
+    omniauth_callbacks:
+      failure: "%{kind} での認証に失敗しました（理由：%{reason}）。"
+      success: "%{kind} アカウントでログインしました。"
+    passwords:
+      no_token: "このページはパスワード再設定メールのリンクからのみアクセスできます。"
+      send_instructions: "パスワード再設定用のメールを送信しました。"
+      send_paranoid_instructions: "（該当する場合は）パスワード再設定用のメールを送信しました。"
+      updated: "パスワードを変更しました。ログインしています。"
+      updated_not_active: "パスワードを変更しました。"
+    registrations:
+      new:
+        title: "ユーザー新規登録"
+        sign_up_button: "登録する"
+      destroyed: "アカウントを削除しました。ご利用ありがとうございました。"
+      signed_up: "仮登録が完了しました。確認メールを送信しました。"
+      signed_up_but_unconfirmed: "確認メールを送信しました。メール内のリンクをクリックして登録を完了してください。"
+      signed_up_but_inactive: "アカウントはまだ有効化されていません。確認メールをご確認ください。"
+      signed_up_but_locked: "アカウントはロックされています。解除後にログインしてください。"
+      updated: "アカウント情報を更新しました。"
+      update_needs_confirmation: "メールアドレスを変更しました。送信された確認メールのリンクをクリックすると反映されます。"
+    sessions:
+      new:
+        title: "ログイン"
+        sign_in_button: "ログイン"
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+      already_signed_out: "ログアウトしました。"
+    shared:
+      links:
+        sign_in: "ログイン"
+        sign_up: "新規登録"
+        forgot_your_password?: "パスワードをお忘れですか？"
+        didn_t_receive_confirmation_instructions?: "確認メールを受け取っていませんか？"
+        didn_t_receive_unlock_instructions?: "ロック解除メールを受け取っていませんか？"
+        sign_in_with_provider: "%{provider}でログイン"
+    unlocks:
+      send_instructions: "ロック解除の案内をメールで送信しました。"
+      send_paranoid_instructions: "（該当する場合は）ロック解除の案内をメールで送信しました。"
+      unlocked: "アカウントのロックを解除しました。ログインしてください。"
+  activerecord:
+    models:
+      user: "ユーザー"
+    attributes:
+      user:
+        name: "名前"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード（確認用）"
+        current_password: "現在のパスワード"
+        remember_me: "ログイン状態を保持する"
+  helpers:
+    submit:
+      user:
+        create: "登録する"
+        update: "更新する"
+        submit: "保存する"
+      password:
+        create: "送信する"
+        update: "パスワードを更新する"
+  errors:
+    messages:
+      already_confirmed: "は既に確認済みです。ログインしてください。"
+      confirmation_period_expired: "%{period}以内に確認が必要です。新しい確認メールをリクエストしてください。"
+      expired: "の有効期限が切れています。新しいものをリクエストしてください。"
+      not_saved: "%{resource}を保存できませんでした。%{count}件のエラーがあります。"

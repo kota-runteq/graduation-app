@@ -56,15 +56,33 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    # services:
-    #  redis:
-    #    image: redis
-    #    ports:
-    #      - 6379:6379
-    #    options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: graduation_app_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd="pg_isready -U postgres -d graduation_app_test"
+          --health-interval=10s --health-timeout=5s --health-retries=12
+
+    env:
+      RAILS_ENV: test
+      SPRING_DISABLE: "1"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: graduation_app_test
+      POSTGRES_HOST: localhost
+
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config google-chrome-stable
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y \
+            build-essential git libyaml-dev pkg-config \
+            google-chrome-stable postgresql-client
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -75,12 +93,34 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Run tests
-        env:
-          RAILS_ENV: test
-          # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test test:system
+      - name: Debug env
+        run: |
+          echo "RAILS_ENV=$RAILS_ENV"
+          bin/rails runner 'puts "Rails.env=#{Rails.env}"'
 
+      - name: Wait for DB
+        run: |
+          until pg_isready -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$POSTGRES_DB"; do
+            sleep 1
+          done
+
+      - name: Prepare test DB
+        run: bin/rails db:prepare --trace
+
+      # まずはユニット/統合テスト
+      - name: Run unit/integration tests (verbose, fail-fast)
+        run: bin/rails test --fail-fast -v
+
+      # 次にシステムテスト
+      - name: Run system tests (verbose, fail-fast)
+        run: bin/rails test:system --fail-fast -v
+
+      # 失敗時に test.log を保存
+      - name: Save test log
+        if: failure()
+        run: cp log/test.log ./test.log || true
+
+      # 失敗時のアーティファクトをアップロード（スクショ＋test.log）
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
         if: failure()
@@ -88,3 +128,11 @@ jobs:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
+
+      - name: Upload test.log
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-log
+          path: test.log
+          if-no-files-found: warn
