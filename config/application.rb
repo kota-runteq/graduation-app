@@ -18,7 +18,7 @@ module GraduationApp
 
     config.i18n.default_locale = :ja
     config.i18n.available_locales = %i[ja en]
-    config.i18n.fallbacks = [:ja, :en]
+    config.i18n.fallbacks = [ :ja, :en ]
 
     # Configuration for the application, engines, and railties goes here.
     #
