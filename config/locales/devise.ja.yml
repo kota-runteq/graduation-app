@@ -20,14 +20,31 @@ ja:
     mailer:
       confirmation_instructions:
         subject: "【ChainMenu+PFC】メールアドレスの確認"
+        greeting: "ようこそ、%{email}様！"
+        instructions: "以下のリンクをクリックして、ユーザー登録を完了してください。。"
+        action: "ユーザー登録を完了する"
       reset_password_instructions:
         subject: "【ChainMenu+PFC】パスワード再設定のご案内"
+        greeting: "こんにちは、%{email}様！"
+        intro: "パスワード変更のリクエストを受け付けました。以下のリンクからパスワードを変更できます。"
+        action: "パスワードを変更する"
+        notice: "このリクエストに心当たりがない場合は、このメールを無視してください。"
+        notice2: "上記のリンクにアクセスして新しいパスワードを設定するまでは、パスワードは変更されません。"
       unlock_instructions:
         subject: "【ChainMenu+PFC】アカウントのロック解除"
+        greeting: "こんにちは、%{email}様！"
+        intro: "ログインに一定回数以上失敗したため、アカウントがロックされました。"
+        instructions: "以下のリンクをクリックするとアカウントのロックを解除できます。"
+        action: "アカウントのロックを解除する"
       email_changed:
         subject: "【ChainMenu+PFC】メールアドレス変更の確認"
+        greeting: "こんにちは、%{email}様！"
+        being_changed: "現在、ご登録のメールアドレスを%{email}に変更する手続きを行っております。"
+        changed: "ご登録のメールアドレスが%{email}に変更されました。"
       password_change:
         subject: "【ChainMenu+PFC】パスワードが変更されました"
+        greeting: "こんにちは、%{email}様！"
+        notice: "パスワードが変更されたことをお知らせするためにご連絡しております。"
     omniauth_callbacks:
       failure: "%{kind} での認証に失敗しました（理由：%{reason}）。"
       success: "%{kind} アカウントでログインしました。"
