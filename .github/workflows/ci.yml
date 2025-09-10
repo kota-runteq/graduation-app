@@ -107,9 +107,20 @@ jobs:
       - name: Prepare test DB
         run: bin/rails db:prepare --trace
 
-      - name: Run tests
-        run: bin/rails test test:system
+      # まずはユニット/統合テスト
+      - name: Run unit/integration tests (verbose, fail-fast)
+        run: bin/rails test --fail-fast -v
 
+      # 次にシステムテスト
+      - name: Run system tests (verbose, fail-fast)
+        run: bin/rails test:system --fail-fast -v
+
+      # 失敗時に test.log を保存
+      - name: Save test log
+        if: failure()
+        run: cp log/test.log ./test.log || true
+
+      # 失敗時のアーティファクトをアップロード（スクショ＋test.log）
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
         if: failure()
@@ -118,3 +129,10 @@ jobs:
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
 
+      - name: Upload test.log
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-log
+          path: test.log
+          if-no-files-found: warn
