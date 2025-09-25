@@ -44,7 +44,7 @@ gem "thruster", require: false
 
 gem "devise", "~> 4.9"
 
-gem "ransack", "~> 4.3"
+gem "ransack", "~> 4.4"
 
 gem "rails-i18n"
 
